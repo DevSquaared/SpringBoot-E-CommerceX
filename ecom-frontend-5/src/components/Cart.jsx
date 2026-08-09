@@ -19,7 +19,7 @@
 //   //         console.log("ITEM",item)
 //   //         try {
 //   //           const response = await axios.get(
-//   //             `http://localhost:8080/api/product/${item.id}/image`,
+//   //             `api/product/${item.id}/image`,
 //   //             { responseType: "blob" }
 //   //           );
 //             // const imageFile = await converUrlToFile(response.data,response.data.imageName)
@@ -46,7 +46,7 @@
 //     const fetchImagesAndUpdateCart = async () => {
 //       try {
     
-//         const response = await axios.get("http://localhost:8080/api/products");
+//         const response = await axios.get("http://local host:8080/api/products");
 //         const backendProductIds = response.data.map((product) => product.id);
 
 //         const updatedCartItems = cart.filter((item) => backendProductIds.includes(item.id));
@@ -54,7 +54,7 @@
 //           updatedCartItems.map(async (item) => {
 //             try {
 //               const response = await axios.get(
-//                 `http://localhost:8080/api/product/${item.id}/image`,
+//                 `http://local host:8080/api/product/${item.id}/image`,
 //                 { responseType: "blob" }
 //               );
 //               const imageFile = await converUrlToFile(response.data, response.data.imageName);
@@ -136,7 +136,7 @@
 //         );
   
 //         await axios
-//           .put(`http://localhost:8080/api/product/${item.id}`, cartProduct, {
+//           .put(`http://localho st:8080/api/product/${item.id}`, cartProduct, {
 //             headers: {
 //               "Content-Type": "multipart/form-data",
 //             },
@@ -257,7 +257,7 @@
 
 
 
-
+import { API_BASE_URL } from "../api/config";
 import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../Context/Context";
 import axios from "axios";
@@ -275,7 +275,7 @@ const Cart = () => {
     const fetchImagesAndUpdateCart = async () => {
       console.log("Cart", cart);
       try {
-        const response = await axios.get("http://localhost:8080/api/products");
+        const response = await axios.get("${API_BASE_URL}/products");
         const backendProductIds = response.data.map((product) => product.id);
 
         const updatedCartItems = cart.filter((item) => backendProductIds.includes(item.id));
@@ -283,7 +283,7 @@ const Cart = () => {
           updatedCartItems.map(async (item) => {
             try {
               const response = await axios.get(
-                `http://localhost:8080/api/product/${item.id}/image`,
+                `${API_BASE_URL}/product/${item.id}/image`,
                 { responseType: "blob" }
               );
               const imageFile = await converUrlToFile(response.data, response.data.imageName);
@@ -368,7 +368,7 @@ const Cart = () => {
         );
   
         await axios
-          .put(`http://localhost:8080/api/product/${item.id}`, cartProduct, {
+          .put(`${API_BASE_URL}/product/${item.id}`, cartProduct, {
             headers: {
               "Content-Type": "multipart/form-data",
             },

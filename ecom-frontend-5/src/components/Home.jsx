@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AppContext from "../Context/Context";
 import unplugged from "../assets/unplugged.png"
-
+import { API_BASE_URL } from "../api/config";
 const Home = ({ selectedCategory }) => {
   const { data, isError, addToCart, refreshData } = useContext(AppContext);
   const [products, setProducts] = useState([]);
@@ -23,7 +23,7 @@ const Home = ({ selectedCategory }) => {
           data.map(async (product) => {
             try {
               const response = await axios.get(
-                `http://localhost:8080/api/product/${product.id}/image`,
+                `${API_BASE_URL}/product/${product.id}/image`,
                 { responseType: "blob" }
               );
               const imageUrl = URL.createObjectURL(response.data);

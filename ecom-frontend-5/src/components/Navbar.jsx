@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Home from "./Home"
 import axios from "axios";
+import { API_BASE_URL } from "../api/config";
 // import { json } from "react-router-dom";
 // import { BiSunFill, BiMoon } from "react-icons/bi";
 
@@ -20,23 +21,23 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
     fetchData();
   }, []);
 
-  const fetchData = async (value) => {
-    try {
-      const response = await axios.get("http://localhost:8080/api/products");
-      setSearchResults(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+const fetchData = async (value) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/products`);
+    setSearchResults(response.data);
+    console.log(response.data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
 
-  const handleChange = async (value) => {
-    setInput(value);
-    if (value.length >= 1) {
-      setShowSearchResults(true)
+const handleChange = async (value) => {
+  setInput(value);
+  if (value.length >= 1) {
+    setShowSearchResults(true);
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/products/search?keyword=${value}`
+        `${API_BASE_URL}/products/search?keyword=${value}`
       );
       setSearchResults(response.data);
       setNoResults(response.data.length === 0);
@@ -44,13 +45,12 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
     } catch (error) {
       console.error("Error searching:", error);
     }
-    } else {
-      setShowSearchResults(false);
-      setSearchResults([]);
-      setNoResults(false);
-    }
-  };
-
+  } else {
+    setShowSearchResults(false);
+    setSearchResults([]);
+    setNoResults(false);
+  }
+};
   
   // const handleChange = async (value) => {
   //   setInput(value);
@@ -59,12 +59,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
   //     try {
   //       let response;
   //       if (!isNaN(value)) {
-  //         // Input is a number, search by ID
-  //         response = await axios.get(`http://localhost:8080/api/products/search?id=${value}`);
-  //       } else {
-  //         // Input is not a number, search by keyword
-  //         response = await axios.get(`http://localhost:8080/api/products/search?keyword=${value}`);
-  //       }
+  //        
 
   //       const results = response.data;
   //       setSearchResults(results);
